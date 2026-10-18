@@ -1,0 +1,40 @@
+MODEL EVALUATION SUMMARY
+========================
+
+Project:
+5G-Enabled Edge-AI Wearable System for Predictive
+Soldier Healthcare in Harsh Environments
+
+Dataset:
+Labelled wearable stress windows from a controlled
+stress and structured-exercise dataset.
+
+Model comparison:
+- Physiology-only model:
+  Accuracy = 0.488
+  Balanced accuracy = 0.477
+  Elevated-stress F1 = 0.562
+
+- Physiology + HRV model:
+  Accuracy = 0.444
+  Balanced accuracy = 0.420
+  Elevated-stress F1 = 0.538
+
+HRV coverage:
+- Usable HRV in 207 of 401 labelled windows (51.6%).
+- Low-stress windows with HRV: 76 of 163 (46.6%).
+- Elevated-stress windows with HRV: 131 of 238 (55.0%).
+
+Conclusion:
+Adding HRV did not improve the evaluated metrics.
+The physiology-only model is retained as the current
+baseline. Both models have limited performance and
+require further validation before practical use.
+
+Limitations:
+- The dataset represents controlled activities, not
+  soldiers in harsh operational environments.
+- HRV is unavailable for approximately half of the
+  labelled windows.
+- These results do not establish clinical validity
+  or reliable real-world stress prediction.

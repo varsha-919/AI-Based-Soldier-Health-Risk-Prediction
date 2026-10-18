@@ -1,0 +1,185 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Soldier Health AI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="topbar">
+        <div class="brand">
+            <div class="brand-icon">S</div>
+            <div>
+                <h2>Soldier Health AI</h2>
+                <p>Wearable Intelligence Platform</p>
+            </div>
+        </div>
+        <div class="system-status">
+            <span class="status-dot"></span>
+            <span id="systemStatus">Checking system...</span>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <p class="eyebrow">EDGE-AI HEALTH MONITORING</p>
+            <h1>Predictive Soldier Healthcare</h1>
+            <p>
+                Analyze wearable physiological signals to estimate
+                stress levels in demanding environments.
+            </p>
+            <div class="notice">
+                Research prototype · Not for clinical or operational decisions
+            </div>
+        </section>
+
+        <section class="overview">
+            <article class="card stat-card">
+                <p>Backend API</p>
+                <h3 id="apiStatus">Checking...</h3>
+                <span>FastAPI connection</span>
+            </article>
+
+            <article class="card stat-card">
+                <p>Prediction Model</p>
+                <h3>Logistic Regression</h3>
+                <span>Physiology-only baseline</span>
+            </article>
+
+            <article class="card stat-card">
+                <p>Input Features</p>
+                <h3>15</h3>
+                <span>Wearable signal features</span>
+            </article>
+        </section>
+
+        <section class="workspace">
+            <div class="card input-card">
+                <div class="section-heading">
+                    <div>
+                        <p class="eyebrow">DATA INPUT</p>
+                        <h2>Wearable Measurements</h2>
+                    </div>
+                    <span class="tag">15 FEATURES</span>
+                </div>
+
+                <p class="description">
+                    Enter measurements from a 30-second wearable-data
+                    window. Use real extracted features when available.
+                </p>
+
+                <form id="predictionForm">
+                    <div class="sample-selector">
+                        <label for="sampleSelector">Load a real wearable-data sample</label>
+
+                        <select id="sampleSelector">
+                            <option value="">Choose a sample...</option>
+                        </select>
+
+                        <p>
+                            Select a sample to automatically fill the 15 physiological features.
+                        </p>
+                    </div>
+                    <div class="form-grid">
+                        <label>Heart rate mean
+                            <input name="hr_mean" type="number" step="any" value="58.741333" required>
+                        </label>
+                        <label>Heart rate standard deviation
+                            <input name="hr_std" type="number" step="any" value="1.604163" required>
+                        </label>
+                        <label>Heart rate minimum
+                            <input name="hr_min" type="number" step="any" value="56.52" required>
+                        </label>
+                        <label>Heart rate maximum
+                            <input name="hr_max" type="number" step="any" value="61.38" required>
+                        </label>
+                        <label>EDA mean
+                            <input name="eda_mean" type="number" step="any" value="0.631990" required>
+                        </label>
+                        <label>EDA standard deviation
+                            <input name="eda_std" type="number" step="any" value="0.071137" required>
+                        </label>
+                        <label>EDA minimum
+                            <input name="eda_min" type="number" step="any" value="0.578147" required>
+                        </label>
+                        <label>EDA maximum
+                            <input name="eda_max" type="number" step="any" value="1.144495" required>
+                        </label>
+                        <label>Acceleration mean magnitude
+                            <input name="acc_mean_magnitude" type="number" step="any" value="62.855498" required>
+                        </label>
+                        <label>Acceleration standard deviation
+                            <input name="acc_std_magnitude" type="number" step="any" value="2.080909" required>
+                        </label>
+                        <label>Acceleration maximum magnitude
+                            <input name="acc_max_magnitude" type="number" step="any" value="76.967526" required>
+                        </label>
+                        <label>BVP mean
+                            <input name="bvp_mean" type="number" step="any" value="0.311479" required>
+                        </label>
+                        <label>BVP standard deviation
+                            <input name="bvp_std" type="number" step="any" value="45.775675" required>
+                        </label>
+                        <label>BVP minimum
+                            <input name="bvp_min" type="number" step="any" value="-158.75" required>
+                        </label>
+                        <label>BVP maximum
+                            <input name="bvp_max" type="number" step="any" value="397.32" required>
+                        </label>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="reset" class="secondary-button">
+                            Reset values
+                        </button>
+                        <button type="submit" id="predictButton" class="primary-button">
+                            Analyze stress
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <aside class="card result-card">
+                <p class="eyebrow">MODEL OUTPUT</p>
+                <h2>Stress Assessment</h2>
+                <p class="description">
+                    The prediction will appear here after analysis.
+                </p>
+
+                <div id="resultPlaceholder" class="result-placeholder">
+                    <div class="pulse-icon">✳</div>
+                    <h3>Awaiting measurements</h3>
+                    <p>Submit the form to request a model prediction.</p>
+                </div>
+
+                <div id="resultContent" hidden>
+                    <div id="resultBadge" class="result-badge"></div>
+                    <p class="probability-label">Estimated elevated-stress probability</p>
+                    <h2 id="probabilityValue" class="probability-value">--%</h2>
+                    <div class="progress-track">
+                        <div id="probabilityBar" class="progress-bar"></div>
+                    </div>
+                    <p id="resultMessage" class="result-message"></p>
+                </div>
+
+                <div id="errorMessage" class="error-message" hidden></div>
+
+                <p class="disclaimer">
+                    This experimental model is not clinically validated.
+                    Predictions may be inaccurate and must not be used
+                    to diagnose or make operational decisions.
+                </p>
+            </aside>
+        </section>
+
+        <footer>
+            <span>Soldier Health AI · Research Prototype</span>
+            <span>Edge-AI & Wearable Analytics</span>
+        </footer>
+    </main>
+
+    <script src="app.js"></script>
+</body>
+</html>

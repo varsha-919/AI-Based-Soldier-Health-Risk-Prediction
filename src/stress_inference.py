@@ -37,6 +37,6 @@ def predict_stress_window(window_features):
             "Elevated stress" if prediction == 1 else "Low stress"
         ),
         "elevated_stress_probability": round(
-            elevated_probability, 3
+            elevated_probability, 6
         ),
     }
